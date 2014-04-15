@@ -119,6 +119,15 @@ public class PartitionGraphTest extends GraphTest {
         assertNull(graph.getVertex("inp1").getEdges(Direction.OUT).iterator().next().getVertex(Direction.IN));
     }
 
+    public void testSubPartitioning() {
+        TinkerGraph rawGraph = new TinkerGraph();
+        PartitionGraph partition = new PartitionGraph(rawGraph, "_partition", "mainPart");
+        PartitionGraph subpartition = new PartitionGraph(partition, "_partition", "subPart");
+        subpartition.addVertex("test1");
+        assertNotNull(subpartition.getVertex("test1"));
+        assertNotNull(partition.getVertex("test1"));
+    }
+
     public void testSpecificBehavior() {
         TinkerGraph rawGraph = new TinkerGraph();
         PartitionIndexableGraph graph = new PartitionIndexableGraph(rawGraph, "_writeGraph", "a");
